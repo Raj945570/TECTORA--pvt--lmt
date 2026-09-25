@@ -1,0 +1,43 @@
+/* ==========================================================================
+   TECTORA GLOBAL PREMIUM ANIMATIONS & HOVER SYSTEM
+   - GPU-accelerated transforms
+   - Card hover elevation & scale (1.03)
+   - Button smooth hover lift & color transitions
+   ========================================================================== */
+
+/* Hardware Acceleration */
+.gpu-accel {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Card Hover Elevation */
+.premium-card-hover {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.3s ease;
+  will-change: transform, box-shadow;
+}
+
+.premium-card-hover:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 20px 42px -10px rgba(11, 31, 58, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Button Subtle Lift & Glow */
+.premium-btn-hover {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              background-color 0.25s ease, 
+              border-color 0.25s ease;
+}
+
+.premium-btn-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(11, 31, 58, 0.18);
+}
+
+.premium-btn-hover:active {
+  transform: translateY(0);
+}

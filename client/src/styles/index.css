@@ -1,0 +1,205 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   TECTORA DESIGN SYSTEM - CORE VARIABLES & FOUNDATIONAL STYLING
+   Preserving exact color fidelity, typography, and spacing
+   ========================================================================== */
+
+:root {
+  /* Colors */
+  --bg-page: #FAFAF8;
+  --bg-card: #FFFFFF;
+  --bg-subtle: #F3F4F1;
+  --bg-alt: #F8F8F5;
+
+  /* Primary & Accent */
+  --navy-primary: #0B1F3A;
+  --navy-hover: #071527;
+  --navy-muted: #1A3152;
+  
+  --gold-accent: #C8A45D;
+  --gold-hover: #B7934C;
+  --gold-light: #F4EFE6;
+  --gold-btn: #F5B82E;
+  --gold-btn-hover: #E5A71D;
+  --gold-border: rgba(200, 164, 93, 0.4);
+
+  /* Text Colors */
+  --text-primary: #1A1A1A;
+  --text-secondary: #4A5568;
+  --text-muted: #64748B;
+  --text-dim: #94A3B8;
+
+  /* Borders & Dividers */
+  --border-light: #E8E8E4;
+  --border-card: #E5E7EB;
+  --border-focus: #C8A45D;
+
+  /* Soft Shadows */
+  --shadow-subtle: 0 2px 8px rgba(11, 31, 58, 0.04);
+  --shadow-card: 0 6px 24px rgba(11, 31, 58, 0.06);
+  --shadow-elevated: 0 16px 40px -10px rgba(11, 31, 58, 0.1);
+  --shadow-floating: 0 20px 48px -12px rgba(11, 31, 58, 0.14);
+
+  /* Typography */
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Layout */
+  --nav-height: 78px;
+  --container-max: 1320px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
+
+  --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container-custom {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+@media (max-width: 768px) {
+  .container-custom {
+    padding: 0 20px;
+  }
+}
+
+/* Base button styles matching original design */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: var(--gold-btn);
+  color: #111827;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0 28px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-gold:hover {
+  background-color: var(--gold-btn-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(245, 184, 46, 0.35);
+}
+
+.btn-navy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: var(--navy-primary);
+  color: #FFFFFF;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0 24px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--gold-border);
+  transition: var(--transition);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-navy:hover {
+  background-color: var(--navy-hover);
+  box-shadow: 0 4px 16px rgba(11, 31, 58, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Reusable Section Headers */
+.section-tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-accent);
+  margin-bottom: 12px;
+}
+
+.section-tag-badge::before {
+  content: '';
+  width: 20px;
+  height: 2px;
+  background-color: var(--gold-accent);
+  display: inline-block;
+}
+
+.section-main-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
+  font-weight: 700;
+  color: var(--navy-primary);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin-bottom: 16px;
+}
+
+.section-main-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  max-width: 680px;
+}
+
+/* Floating WhatsApp Button */
+.floating-wa-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 56px;
+  height: 56px;
+  background-color: #25D366;
+  color: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+  z-index: 999;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.floating-wa-btn:hover {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.45);
+}

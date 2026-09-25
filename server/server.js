@@ -1,118 +1,76 @@
 require('dotenv').config();
 const path = require('path');
+const fs = require('fs');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const passport = require('./config/passport');
 const authRoutes = require('./routes/auth');
-const { protectPage, guestOnlyPage } = require('./middleware/authMiddleware');
+const enquiryRoutes = require('./routes/enquiry');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const PUBLIC_DIR = path.join(__dirname, '..', 'public');
 
-// Connect to MongoDB
+// Connect to MongoDB Database
 connectDB();
 
 // Core Middleware
-app.use(cors());
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 
-// 1. Static Assets (Publicly accessible: styles, scripts, images, icons)
-app.use('/assets', express.static(path.join(PUBLIC_DIR, 'assets')));
-app.use('/styles', express.static(path.join(PUBLIC_DIR, 'styles')));
-app.use('/scripts', express.static(path.join(PUBLIC_DIR, 'scripts')));
+// 1. Health Check Endpoint
+app.get('/api/health', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    service: 'TECTORA MERN REST API',
+    environment: process.env.NODE_ENV || 'development',
+    timestamp: new Date().toISOString()
+  });
+});
 
-// 2. Authentication API Routes
+// 2. REST API Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/enquiry', enquiryRoutes);
 
-// 3. Guest-Only Pages (Login and Signup)
-// If already logged in, redirect to homepage
-app.get(['/login.html', '/pages/auth/login.html'], guestOnlyPage, (req, res) => {
-  res.sendFile(path.join(PUBLIC_DIR, 'login.html'));
+// 3. Production Static Serving (When built client exists)
+const CLIENT_DIST = path.join(__dirname, '..', 'client', 'dist');
+if (process.env.NODE_ENV === 'production' && fs.existsSync(CLIENT_DIST)) {
+  app.use(express.static(CLIENT_DIST));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(CLIENT_DIST, 'index.html'));
+  });
+}
+
+// 4. API 404 Handler
+app.use('/api/*', (req, res) => {
+  res.status(404).json({
+    success: false,
+    message: `API endpoint '${req.originalUrl}' does not exist.`
+  });
 });
 
-app.get(['/signup.html', '/pages/auth/signup.html'], guestOnlyPage, (req, res) => {
-  res.sendFile(path.join(PUBLIC_DIR, 'signup.html'));
-});
-
-// 4. Convenience Routes for Services & Subpages (Protected)
-// Allows direct access via /services.html as well as /pages/services.html
-app.get(['/services.html', '/pages/services.html'], protectPage, (req, res) => {
-  res.sendFile(path.join(PUBLIC_DIR, 'services.html'));
-});
-
-// Digital Services Route (Public Showcase & Solutions)
-app.get(['/digital-services.html', '/pages/digital-services.html', '/pages/services/digital-services.html'], (req, res) => {
-  res.sendFile(path.join(PUBLIC_DIR, 'digital-services.html'));
-});
-
-// Subpage direct routes
-app.get(['/materials.html', '/pages/services/materials.html'], protectPage, (req, res) => {
-  res.sendFile(path.join(PUBLIC_DIR, 'pages', 'services', 'materials.html'));
-});
-
-app.get(['/commercial.html', '/real-estate.html', '/pages/services/commercial.html', '/pages/services/real-estate.html'], protectPage, (req, res) => {
-  res.sendFile(path.join(PUBLIC_DIR, 'pages', 'services', 'real-estate.html'));
-});
-
-app.get(['/contractors.html', '/experts.html', '/pages/services/contractors.html', '/pages/services/experts.html'], protectPage, (req, res) => {
-  res.sendFile(path.join(PUBLIC_DIR, 'pages', 'services', 'experts.html'));
-});
-
-app.get(['/eco.html', '/pages/services/eco.html'], protectPage, (req, res) => {
-  res.sendFile(path.join(PUBLIC_DIR, 'pages', 'services', 'eco.html'));
-});
-
-app.get(['/interior.html', '/pages/interior.html', '/pages/services/interior.html'], protectPage, (req, res) => {
-  res.sendFile(path.join(PUBLIC_DIR, 'pages', 'interior.html'));
-});
-
-app.get(['/enquiry.html', '/pages/enquiry/enquiry.html'], protectPage, (req, res) => {
-  res.sendFile(path.join(PUBLIC_DIR, 'pages', 'enquiry', 'enquiry.html'));
-});
-
-app.get(['/project-management.html', '/pages/project/project-management.html'], protectPage, (req, res) => {
-  res.sendFile(path.join(PUBLIC_DIR, 'pages', 'project', 'project-management.html'));
-});
-
-// 5. Main Homepage (Strictly Protected)
-// If user has no valid session, protectPage redirects them to /login.html
-app.get(['/', '/index.html'], protectPage, (req, res) => {
-  res.sendFile(path.join(PUBLIC_DIR, 'index.html'));
-});
-
-// 6. Any other HTML or static file under public (with auth protection on HTML)
-app.use((req, res, next) => {
-  if (req.path.endsWith('.html') || req.path === '/') {
-    return protectPage(req, res, () => {
-      res.sendFile(path.join(PUBLIC_DIR, req.path), (err) => {
-        if (err) next();
-      });
-    });
-  }
-  next();
-});
-
-// General static serving for any other assets
-app.use(express.static(PUBLIC_DIR));
-
-// 404 Fallback: Redirect unauthenticated to login, or authenticated to index
-app.use((req, res) => {
-  if (req.accepts('html')) {
-    res.redirect('/');
-  } else {
-    res.status(404).json({ success: false, message: 'Resource not found' });
-  }
+// 5. Global Error Handler
+app.use((err, req, res, next) => {
+  console.error('[TECTORA Server Error]', err.stack || err.message);
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || 'Internal Server Error'
+  });
 });
 
 // Start Server
 app.listen(PORT, () => {
-  console.log(`[TECTORA] Server running at http://localhost:${PORT}`);
-  console.log(`[TECTORA] Protected routes: /index.html, /materials.html, /commercial.html, etc.`);
-  console.log(`[TECTORA] Auth routes: /login.html, /signup.html, /api/auth/*`);
+  console.log(`[TECTORA] REST API Server running on port ${PORT}`);
+  console.log(`[TECTORA] API Health: http://localhost:${PORT}/api/health`);
+  console.log(`[TECTORA] Auth Endpoints: /api/auth/login, /api/auth/signup, /api/auth/google`);
+  console.log(`[TECTORA] Enquiry Endpoints: /api/enquiry`);
 });
+
+module.exports = app;
