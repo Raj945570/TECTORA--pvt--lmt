@@ -935,13 +935,14 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .digital-cards-grid {
-    gap: 24px;
+    gap: 20px;
   }
   .digital-service-card {
     flex: 1 1 100%;
     max-width: 100%;
+    min-width: 0;
   }
 }
 
@@ -1091,6 +1092,17 @@
 
 .digital-btn-full-cta:hover .digital-cta-btn-arrow {
   transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+  .digital-btn-full-cta {
+    padding: 14px 20px;
+    font-size: 0.95rem;
+  }
+  .digital-bottom-cta-wrap {
+    margin: 40px auto 0;
+    padding-top: 24px;
+  }
 }
 
 /* Scroll Animation */

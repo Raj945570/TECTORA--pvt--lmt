@@ -81,37 +81,37 @@ export default function Navbar() {
 
         {/* Right Side: CTA & Mobile Drawer Toggle */}
         <div className="nav-right">
-          {/* Auth Link: "Sign Out" if logged in, "Login" if not */}
+          {/* Auth Link: "Sign Out" if logged in, "Login" if not (desktop only) */}
           {isAuthenticated ? (
             <button 
               type="button" 
               onClick={logout} 
-              className="nav-auth-link"
+              className="nav-auth-link hidden lg:inline-flex"
               style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '6px 10px' }}
             >
               Sign Out
             </button>
           ) : (
-            <Link to="/login" className="nav-auth-link">
+            <Link to="/login" className="nav-auth-link hidden lg:inline-flex">
               Login
             </Link>
           )}
 
-          {/* Button: "Enquiry Now" - Navigates directly to dedicated Enquiry page */}
+          {/* Button: "Enquiry Now" (desktop only) */}
           <Link 
             to="/enquiry" 
             onClick={() => setMobileMenuOpen(false)}
-            className="btn-quote" 
+            className="btn-quote hidden lg:inline-flex" 
             id="btnNavQuote"
           >
             Enquiry Now
           </Link>
 
-          {/* Mobile Drawer Toggle */}
+          {/* Mobile Drawer Toggle (visible < 1024px) */}
           <button 
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="nav-mobile-toggle" 
+            className="nav-mobile-toggle lg:hidden flex" 
             id="navMobileToggle" 
             aria-label="Toggle navigation menu" 
             aria-expanded={mobileMenuOpen}
@@ -127,7 +127,7 @@ export default function Navbar() {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="mobile-drawer-panel p-5 bg-white border-b border-[#E8E8E4] shadow-lg flex flex-col gap-3 lg:hidden">
-          <ul className="flex flex-col gap-3 list-none m-0 p-0">
+          <ul className="flex flex-col gap-2.5 list-none m-0 p-0">
             {navLinks.map((link) => {
               const active = isActive(link);
               return (
@@ -135,7 +135,9 @@ export default function Navbar() {
                   <Link
                     to={link.path}
                     onClick={handleLinkClick}
-                    className={`block py-2 text-base font-medium ${active ? 'text-[#C8A45D] font-semibold' : 'text-[#4A5568]'}`}
+                    className={`block py-2.5 px-3 rounded-lg text-base font-medium transition-colors ${
+                      active ? 'bg-[#F4EFE6] text-[#0B1F3A] font-semibold' : 'text-[#4A5568] hover:bg-[#FAFAF8] hover:text-[#0B1F3A]'
+                    }`}
                   >
                     {link.name}
                   </Link>
@@ -143,7 +145,7 @@ export default function Navbar() {
               );
             })}
           </ul>
-          <div className="pt-3 border-t border-[#E8E8E4] flex flex-col gap-2">
+          <div className="pt-3 border-t border-[#E8E8E4] flex flex-col gap-2.5">
             {isAuthenticated ? (
               <button 
                 type="button" 
@@ -151,8 +153,8 @@ export default function Navbar() {
                   setMobileMenuOpen(false);
                   logout();
                 }}
-                className="nav-auth-link block w-full py-2 text-center text-sm font-semibold text-[#0B1F3A]"
-                style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+                className="nav-auth-link block w-full py-2.5 text-center text-sm font-semibold text-[#0B1F3A] bg-[#F4EFE6] rounded-md transition-colors hover:bg-[#EAE4D7]"
+                style={{ border: 'none', cursor: 'pointer' }}
               >
                 Sign Out
               </button>
@@ -160,7 +162,7 @@ export default function Navbar() {
               <Link 
                 to="/login" 
                 onClick={() => setMobileMenuOpen(false)}
-                className="nav-auth-link block py-2 text-center text-sm font-semibold text-[#0B1F3A]"
+                className="nav-auth-link block w-full py-2.5 text-center text-sm font-semibold text-[#0B1F3A] bg-[#F4EFE6] rounded-md transition-colors hover:bg-[#EAE4D7]"
               >
                 Login
               </Link>
@@ -168,7 +170,7 @@ export default function Navbar() {
             <Link 
               to="/enquiry" 
               onClick={() => setMobileMenuOpen(false)}
-              className="btn-quote w-full text-center block"
+              className="btn-quote w-full text-center flex items-center justify-center h-11"
             >
               Enquiry Now
             </Link>

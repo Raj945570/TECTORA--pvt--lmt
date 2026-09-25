@@ -42,13 +42,14 @@ export default function Hero() {
 
             {/* Two Action Buttons */}
             <FadeIn direction="up" duration={0.8} delay={0.4}>
-              <div className="hero-actions-row">
+              <div className="hero-actions-row flex flex-col sm:flex-row w-full sm:w-auto gap-3 sm:gap-4">
                 <motion.div 
                   whileHover={{ scale: 1.025, y: -2 }} 
                   whileTap={{ scale: 0.98 }}
                   transition={{ duration: 0.2 }}
+                  className="w-full sm:w-auto"
                 >
-                  <Link to="/contact" className="hero-btn-primary premium-btn-hover" id="btnHeroStartProject">
+                  <Link to="/contact" className="hero-btn-primary premium-btn-hover w-full sm:w-auto justify-center" id="btnHeroStartProject">
                     <span>Start Your Project</span>
                     <span className="btn-arrow" aria-hidden="true">&rarr;</span>
                   </Link>
@@ -58,10 +59,11 @@ export default function Hero() {
                   whileHover={{ scale: 1.025, y: -2 }} 
                   whileTap={{ scale: 0.98 }}
                   transition={{ duration: 0.2 }}
+                  className="w-full sm:w-auto"
                 >
                   <Link 
                     to="/services" 
-                    className="hero-btn-secondary premium-btn-hover" 
+                    className="hero-btn-secondary premium-btn-hover w-full sm:w-auto justify-center" 
                     id="btnHeroExploreMarketplace"
                     style={{
                       display: 'inline-flex',

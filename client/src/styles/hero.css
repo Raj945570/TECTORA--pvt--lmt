@@ -342,19 +342,53 @@
 
 @media (max-width: 1024px) {
   .hero-grid-split {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
-  .hero-inquiry-card {
-    max-width: 540px;
+    padding: 60px 0 70px;
+    max-width: 100%;
   }
 }
 
-@media (max-width: 580px) {
-  .hero-inquiry-card {
-    padding: 28px 20px;
+@media (max-width: 768px) {
+  .hero-grid-split {
+    padding: 40px 0 50px;
+  }
+  .hero-tagline {
+    font-size: 0.72rem;
+    margin-bottom: 16px;
   }
   .hero-heading-main {
-    font-size: 2.4rem;
+    font-size: clamp(2rem, 7.5vw, 2.7rem);
+    margin-bottom: 16px;
+    line-height: 1.18;
+  }
+  .hero-subtext-main {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .hero-actions-row {
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .hero-actions-row > div {
+    width: 100%;
+  }
+  .hero-btn-primary,
+  .hero-btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+  .hero-highlights-row {
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .hero-highlight-divider {
+    display: none;
+  }
+  .hero-highlight-item {
+    font-size: 0.82rem;
+    width: 100%;
   }
 }
+

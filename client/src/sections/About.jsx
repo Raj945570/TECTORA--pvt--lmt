@@ -9,30 +9,30 @@ export default function About() {
   ];
 
   return (
-    <section className="py-24 bg-white border-t border-[#E8E8E4]" id="about">
+    <section className="py-12 sm:py-16 md:py-24 bg-white border-t border-[#E8E8E4]" id="about">
       <div className="container-custom">
         
         {/* Section Header */}
-        <FadeIn direction="up" duration={0.8} amount={0.2} className="max-w-[760px] mb-16">
+        <FadeIn direction="up" duration={0.8} amount={0.2} className="max-w-[760px] mb-8 sm:mb-12 md:mb-16">
           <div className="inline-flex items-center gap-2.5 text-[0.78rem] font-bold tracking-[0.14em] uppercase text-[#C8A45D] mb-3">
             <span className="w-5 h-[2px] bg-[#C8A45D]" aria-hidden="true"></span>
             <span>Leadership &amp; Vision</span>
           </div>
-          <h2 className="font-serif text-[2.2rem] sm:text-[2.8rem] font-bold text-[#0B1F3A] leading-tight mb-4">
+          <h2 className="font-serif text-2xl sm:text-3xl md:text-[2.8rem] font-bold text-[#0B1F3A] leading-tight mb-4">
             About TECTORA
           </h2>
-          <p className="text-[1.05rem] text-[#4A5568] leading-relaxed">
+          <p className="text-base sm:text-[1.05rem] text-[#4A5568] leading-relaxed">
             Built on an unwavering commitment to transparency, engineering precision, and long-term asset value in modern infrastructure development.
           </p>
         </FadeIn>
 
         {/* Split Grid: Founder image on left, text on right */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-center">
           
           {/* Left: Founder Image Card (5 cols) */}
           <div className="lg:col-span-5">
             <FadeIn direction="right" duration={0.85} delay={0.15} amount={0.2}>
-              <div className="bg-[#FAFAF8] border border-[#E8E8E4] rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="bg-[#FAFAF8] border border-[#E8E8E4] rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow">
                 <div className="relative rounded-xl overflow-hidden mb-6 bg-[#E2E4DE] shadow-inner">
                   <img 
                     src={ownerImage} 
@@ -67,7 +67,7 @@ export default function About() {
           <div className="lg:col-span-7 flex flex-col gap-6">
             
             <FadeIn direction="left" duration={0.85} delay={0.2} amount={0.2}>
-              <div className="p-8 sm:p-10 bg-[#FAFAF8] border border-[#E8E8E4] rounded-2xl relative shadow-sm hover:shadow-md transition-shadow">
+              <div className="p-5 sm:p-8 md:p-10 bg-[#FAFAF8] border border-[#E8E8E4] rounded-2xl relative shadow-sm hover:shadow-md transition-shadow">
                 <div className="text-[#C8A45D]/40 mb-4" aria-hidden="true">
                   <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>

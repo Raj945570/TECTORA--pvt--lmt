@@ -457,25 +457,45 @@
     gap: 36px;
   }
   .stats-cards-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
   .footer-top-row {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .features-grid-4 {
     grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .stats-cards-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
   .contact-row-2 {
     grid-template-columns: 1fr;
   }
   .property-showcase-box {
-    padding: 24px;
+    padding: 24px 16px;
   }
   .contact-form-card {
-    padding: 24px 20px;
+    padding: 24px 16px;
+  }
+  .showcase-btns-row {
+    flex-direction: column;
+    width: 100%;
+  }
+  .showcase-btns-row .btn-gold,
+  .showcase-btns-row .btn-navy {
+    width: 100%;
+  }
+  .slider-thumbnails-row {
+    gap: 8px;
+  }
+  .slider-thumb-item {
+    height: 58px;
   }
 }
 
@@ -681,12 +701,21 @@
 }
 
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .service-offerings-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
   .service-bullets-wrap {
-    padding: 24px 18px;
+    padding: 24px 16px;
+  }
+  .service-cta-btns {
+    flex-direction: column;
+    width: 100%;
+  }
+  .service-cta-btns .btn-gold,
+  .service-cta-btns .btn-navy {
+    width: 100%;
   }
 }
 
@@ -1009,6 +1038,14 @@
   }
 }
 
+@media (min-width: 769px) and (max-width: 1024px) {
+  .ultratech-cards-grid,
+  .core-offerings-grid-5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+}
+
 @media (max-width: 768px) {
   .tools-header-row {
     flex-direction: column;
@@ -1020,23 +1057,12 @@
   }
   .ultratech-cards-grid,
   .core-offerings-grid-5 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 16px;
   }
   .ultratech-card,
   .core-offering-card {
     padding: 22px 18px 20px;
-  }
-  .tools-divider-line {
-    max-width: 80px;
-  }
-}
-
-@media (max-width: 520px) {
-  .ultratech-cards-grid,
-  .core-offerings-grid-5 {
-    grid-template-columns: 1fr;
-    gap: 16px;
   }
   .tools-divider-line {
     display: none;
@@ -1311,7 +1337,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .seller-listing-grid {
     grid-template-columns: 1fr;
   }
@@ -1609,15 +1635,15 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .about-contact-grid {
     grid-template-columns: 1fr;
   }
   .about-owner-img-frame {
-    height: 340px;
+    height: 320px;
   }
   .about-vision-box {
-    padding: 24px 20px;
+    padding: 24px 18px;
   }
   .about-contact-card {
     padding: 20px 16px;
@@ -1869,12 +1895,12 @@
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 768px) {
   .why-choose-section {
-    padding: 72px 0;
+    padding: 64px 0;
   }
   .why-header {
-    margin-bottom: 40px;
+    margin-bottom: 36px;
     text-align: left;
   }
   .why-header .section-tag {
@@ -1882,7 +1908,7 @@
   }
   .why-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 18px;
   }
   .why-card:nth-child(1),
   .why-card:nth-child(2),
@@ -1891,6 +1917,6 @@
   .why-card:nth-child(5) {
     grid-column: 1 / -1;
     max-width: 100%;
-    padding: 28px 22px;
+    padding: 26px 20px;
   }
 }

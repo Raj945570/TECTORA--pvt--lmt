@@ -583,18 +583,19 @@
   }
 }
 
-@media (max-width: 580px) {
+@media (max-width: 768px) {
   .enquiry-hero-section {
     padding: 20px 0 32px;
   }
 
   .enquiry-hero-container {
-    padding: 0 12px;
+    padding: 0 16px;
   }
 
   .enquiry-form-column {
-    padding: 16px 14px;
+    padding: 18px 16px;
     border-radius: 14px;
+    max-width: 100%;
   }
 
   .enquiry-card {
@@ -602,7 +603,7 @@
   }
 
   .enquiry-main-title {
-    font-size: 2.1rem;
+    font-size: clamp(1.8rem, 6vw, 2.2rem);
   }
 
   .enquiry-trust-row {
@@ -619,7 +620,7 @@
   }
 
   .field-input {
-    height: 40px;
-    font-size: 0.86rem;
+    height: 42px;
+    font-size: 0.88rem;
   }
 }

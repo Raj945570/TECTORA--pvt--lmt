@@ -366,55 +366,18 @@
   transform: translateY(-7px) rotate(-45deg);
 }
 
-@media (max-width: 1080px) {
-  .nav-links-list {
-    gap: 20px;
-  }
-  .search-wrapper {
-    width: 150px;
-  }
-}
-
-@media (max-width: 920px) {
-  .nav-mobile-toggle {
-    display: flex;
-  }
-
+@media (max-width: 1024px) {
   .nav-center {
-    position: fixed;
-    top: var(--nav-height);
-    left: 0;
-    right: 0;
-    background-color: #FFFFFF;
-    border-bottom: 1px solid var(--border-light);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
-    padding: 24px 32px 32px;
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
+    display: none !important;
   }
 
-  .nav-center.is-open {
-    display: flex;
+  .nav-mobile-toggle {
+    display: flex !important;
   }
 
-  .nav-links-list {
-    flex-direction: column;
-    align-items: flex-start;
+  .nav-container {
+    padding: 12px 24px;
     gap: 16px;
-    width: 100%;
-  }
-
-  .nav-link {
-    font-size: 1.05rem;
-    width: 100%;
-  }
-
-  .nav-btn-enquiry {
-    width: 100%;
-    height: 44px;
-    font-size: 0.96rem;
-    margin: 4px 0;
   }
 
   .nav-right .search-wrapper {
@@ -422,16 +385,22 @@
   }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 768px) {
+  .tectora-header {
+    height: 68px;
+  }
+
   .nav-container {
-    padding: 0 18px;
+    padding: 10px 16px;
   }
+
   .brand-actual-logo {
-    height: 32px;
+    height: 36px;
   }
-  .btn-quote {
-    padding: 0 16px;
-    font-size: 0.82rem;
+
+  .nav-mobile-toggle {
+    width: 38px;
     height: 38px;
   }
 }
+

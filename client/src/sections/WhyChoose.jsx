@@ -67,25 +67,25 @@ export default function WhyChoose() {
   ];
 
   return (
-    <section className="py-24 bg-[#FAFAF8]" id="why-choose">
+    <section className="py-12 sm:py-16 md:py-24 bg-[#FAFAF8]" id="why-choose">
       <div className="container-custom">
         
         {/* Section Header */}
-        <FadeIn direction="up" duration={0.8} amount={0.2} className="max-w-[760px] mb-16">
+        <FadeIn direction="up" duration={0.8} amount={0.2} className="max-w-[760px] mb-8 sm:mb-12 md:mb-16">
           <div className="inline-flex items-center gap-2.5 text-[0.78rem] font-bold tracking-[0.14em] uppercase text-[#C8A45D] mb-3">
             <span className="w-5 h-[2px] bg-[#C8A45D]" aria-hidden="true"></span>
             <span>What TECTORA Offers</span>
           </div>
-          <h2 className="font-serif text-[2.2rem] sm:text-[2.8rem] font-bold text-[#0B1F3A] leading-tight mb-4">
+          <h2 className="font-serif text-2xl sm:text-3xl md:text-[2.8rem] font-bold text-[#0B1F3A] leading-tight mb-4">
             Why Choose TECTORA
           </h2>
-          <p className="text-[1.05rem] text-[#4A5568] leading-relaxed">
+          <p className="text-base sm:text-[1.05rem] text-[#4A5568] leading-relaxed">
             Built for clients who prioritize craftsmanship, uncompromising material integrity, transparent operations, and long-term asset value.
           </p>
         </FadeIn>
 
         {/* 5 Key Value Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {valuePropositions.map((item, idx) => (
             <MotionCard
               key={item.num}
@@ -93,7 +93,7 @@ export default function WhyChoose() {
               duration={0.75}
               hoverScale={1.03}
               hoverY={-4}
-              className={`flex flex-col justify-between p-8 bg-white border border-[#E8E8E4] rounded-xl shadow-[0_2px_8px_rgba(11,31,58,0.04)] hover:shadow-[0_16px_36px_rgba(11,31,58,0.1)] hover:border-[#C8A45D]/60 transition-colors duration-200 cursor-default ${
+              className={`flex flex-col justify-between p-5 sm:p-7 md:p-8 bg-white border border-[#E8E8E4] rounded-xl shadow-[0_2px_8px_rgba(11,31,58,0.04)] hover:shadow-[0_16px_36px_rgba(11,31,58,0.1)] hover:border-[#C8A45D]/60 transition-colors duration-200 cursor-default ${
                 idx === 4 ? 'md:col-span-2 lg:col-span-1' : ''
               }`}
             >
