@@ -1,5 +1,5 @@
-/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState, useEffect } from 'react';
+import { BASE_URL } from '../config/api';
 
 const AuthContext = createContext(null);
 
@@ -14,6 +14,30 @@ export function AuthProvider({ children }) {
     }
   });
   const [isAuthenticated, setIsAuthenticated] = useState(() => Boolean(localStorage.getItem('token')));
+
+  // Validate session with live backend on initial load
+  useEffect(() => {
+    const currentToken = localStorage.getItem('token');
+    if (currentToken && currentToken !== 'userLoggedIn') {
+      fetch(`${BASE_URL}/api/auth/me`, {
+        headers: {
+          'Authorization': `Bearer ${currentToken}`
+        }
+      })
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (data && data.user) {
+          setUser(data.user);
+          localStorage.setItem('user', JSON.stringify(data.user));
+        } else if (data && !data.success) {
+          logout();
+        }
+      })
+      .catch(() => {
+        // offline/network issue, retain current local state
+      });
+    }
+  }, []);
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -43,6 +67,15 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
+    const currentToken = localStorage.getItem('token');
+    if (currentToken && currentToken !== 'userLoggedIn') {
+      fetch(`${BASE_URL}/api/auth/logout`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${currentToken}`
+        }
+      }).catch(() => {});
+    }
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     setToken(null);

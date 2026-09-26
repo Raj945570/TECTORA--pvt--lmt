@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { BASE_URL, getAuthHeaders } from '../config/api';
 import '../styles/enquiry.css';
 
 const PROJECT_OPTIONS = [
@@ -111,12 +112,11 @@ export default function EnquiryForm({ onSuccess, isModal = false }) {
     };
 
     try {
-      const response = await fetch('/api/enquiry', {
+      const response = await fetch(`${BASE_URL}/api/enquiry`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+        headers: getAuthHeaders({
           'Accept': 'application/json'
-        },
+        }),
         body: JSON.stringify(payload)
       });
 

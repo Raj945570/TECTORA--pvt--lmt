@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
+import { BASE_URL } from '../config/api';
 import tectoraLogo from '../assets/images/tectora-logo-new.png';
 import wallLoginBg from '../assets/images/tectora-wall-login-bg.jpg';
 
@@ -48,7 +49,7 @@ export default function Signup() {
     setError('');
 
     try {
-      const response = await fetch('/api/auth/signup', {
+      const response = await fetch(`${BASE_URL}/api/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -65,16 +66,14 @@ export default function Signup() {
         throw new Error(data.message || 'Registration failed.');
       }
 
-      login(data.token || 'userLoggedIn', data.user);
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+      }
+      login(data.token, data.user);
       navigate('/');
     } catch (err) {
-      console.warn('[Signup Notice]', err.message);
-      if (err.message.includes('fetch') || err.message.includes('Network')) {
-        login('userLoggedIn');
-        navigate('/');
-      } else {
-        setError(err.message);
-      }
+      console.warn('[Signup Error]', err.message);
+      setError(err.message || 'Failed to connect to the live backend server.');
     } finally {
       setIsLoading(false);
     }

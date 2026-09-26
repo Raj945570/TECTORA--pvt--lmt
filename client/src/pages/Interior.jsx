@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { FadeIn } from '../components/motion/MotionVariants';
+import { BASE_URL, getAuthHeaders } from '../config/api';
 import '../styles/interior.css';
 
 const INTERIOR_CATEGORIES = [
@@ -264,9 +265,9 @@ export default function Interior() {
 
     setEnquiryLoading(true);
     try {
-      await fetch('/api/enquiry', {
+      await fetch(`${BASE_URL}/api/enquiry`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAuthHeaders(),
         body: JSON.stringify({
           inquiryId: `TEC-INT-${Date.now()}`,
           fullName: enquiryForm.fullName,

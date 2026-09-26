@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { FadeIn, MotionButton } from '../components/motion/MotionVariants';
+import { BASE_URL, getAuthHeaders } from '../config/api';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -11,10 +12,28 @@ export default function Contact() {
   });
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.name && formData.email && formData.projectType && formData.message) {
       setSubmitted(true);
+
+      try {
+        await fetch(`${BASE_URL}/api/enquiry`, {
+          method: 'POST',
+          headers: getAuthHeaders(),
+          body: JSON.stringify({
+            fullName: formData.name.trim(),
+            email: formData.email.trim(),
+            phone: formData.phone ? formData.phone.trim() : '9876543210',
+            projectType: formData.projectType,
+            message: formData.message.trim(),
+            source: 'Homepage Contact Section'
+          })
+        });
+      } catch (err) {
+        console.warn('Contact inquiry sync notice:', err.message);
+      }
+
       setTimeout(() => {
         setSubmitted(false);
         setFormData({ name: '', email: '', phone: '', projectType: '', message: '' });

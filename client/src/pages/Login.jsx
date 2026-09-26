@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
+import { BASE_URL } from '../config/api';
 import tectoraLogo from '../assets/images/tectora-logo-new.png';
 import wallLoginBg from '../assets/images/tectora-wall-login-bg.jpg';
 
@@ -29,7 +30,7 @@ export default function Login() {
     setError('');
 
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch(`${BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email.trim(), password })
@@ -40,17 +41,14 @@ export default function Login() {
         throw new Error(data.message || 'Login failed. Please check your credentials.');
       }
 
-      login(data.token || 'userLoggedIn', data.user);
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+      }
+      login(data.token, data.user);
       navigate('/');
     } catch (err) {
-      console.warn('[Login Notice]', err.message);
-      // Fallback for development/offline if API error is network failure
-      if (err.message.includes('fetch') || err.message.includes('Network')) {
-        login('userLoggedIn');
-        navigate('/');
-      } else {
-        setError(err.message);
-      }
+      console.warn('[Login Error]', err.message);
+      setError(err.message || 'Failed to connect to the live backend server.');
     } finally {
       setIsLoading(false);
     }
